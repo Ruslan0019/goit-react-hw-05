@@ -14,12 +14,12 @@ const MovieDetails = () => {
   }, [movieId]);
 
   const { poster_path, title, vote_average, overview, genres } = movieDetails;
-  const { state } = useLocation();
-  const backLinkRef = useRef(state?.from || "/");
-
+  const location = useLocation();
+  const backLinkRef = useRef(location.state);
+  console.log("movieDetalispage", location);
   return (
     <div>
-      <Link to={backLinkRef.current}>Go back</Link>
+      <Link to={backLinkRef.current ?? "/"}>Go back</Link>
 
       <div>
         <div>

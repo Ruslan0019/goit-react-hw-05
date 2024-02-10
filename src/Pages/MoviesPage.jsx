@@ -30,7 +30,7 @@ const Movies = () => {
     if (queryFromURL) {
       handleSearch(queryFromURL);
     }
-  }, [location.search, handleSearch]);
+  }, [location]);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {

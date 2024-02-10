@@ -23,7 +23,7 @@ const ReviewsPage = () => {
           ))}
         </div>
       ) : (
-        <ul>We dont have any reviews for this movie.</ul>
+        <ul>We don`t have any reviews for this movie.</ul>
       )}
     </div>
   );

@@ -2,14 +2,14 @@ import { Link, useLocation } from "react-router-dom";
 
 const MovieList = ({ movies }) => {
   const location = useLocation();
-
+  console.log("movieList", location);
   return (
     <ul>
       {movies.map((movie) => (
         <Link
           key={movie.id}
           to={`/movies/${movie.id}`}
-          state={{ from: location.pathname }}
+          state={location}
           style={{
             display: "block",
             marginBottom: 20,
