@@ -1,25 +1,25 @@
 import { useState, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import MovieList from "../components/MovieList/MovieList";
 import { fetchMovies } from "../api/api";
 
 const Movies = () => {
   const location = useLocation();
-
   const [searchQuery, setSearchQuery] = useState("");
   const [movies, setMovies] = useState([]);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSearch = useCallback(
     async (query) => {
       const results = await fetchMovies(query);
       setMovies(results);
 
-      const queryParams = new URLSearchParams(location.search);
-      queryParams.set("query", query);
+      searchParams.set("query", query);
 
-      window.history.pushState({}, "", `${window.location.pathname}?${queryParams.toString()}`);
+      setSearchParams(searchParams);
     },
-    [location.search]
+    [searchParams]
   );
 
   useEffect(() => {
@@ -30,7 +30,11 @@ const Movies = () => {
     if (queryFromURL) {
       handleSearch(queryFromURL);
     }
-  }, [location]);
+  }, [location.search, handleSearch]);
+
+  useEffect(() => {
+    setSearchParams(searchParams);
+  }, [searchParams, setSearchParams]);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
